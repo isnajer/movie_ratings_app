@@ -14,8 +14,8 @@ class User(db.Model):
     user_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    email = db.Column(db.String, nullable=True, unique=True)
-    password = db.Column(db.String, nullable=True)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
     # nullable MAY be an error later on....
     
     ratings = db.relationship("Rating", back_populates="user")
@@ -34,13 +34,14 @@ class Movie(db.Model):
                         primary_key=True)
     title = db.Column(db.String)
     overview = db.Column(db.Text)
-    release_data = db.Column(db.DateTime)
+    release_date = db.Column(db.DateTime)
     poster_path = db.Column(db.String)
 
     ratings = db.relationship("Rating", back_populates="movie")
 
     def __repr__(self):
         return f'<Movie movie_id={self.movie_id} title={self.title}>'
+
 
 class Rating(db.Model):
     """Ratings."""
@@ -81,5 +82,17 @@ if __name__ == "__main__":
 
     connect_to_db(app)
 
-# WHAT DOES `print(rating[0].movie.title)` DO?
-# Is it an index position? is it a rating?
+
+# CREATE TABLE: MOVIE RATINGS PART 1
+# CREATE A USER CLASS:
+# 1 Create Class -> refer to function in line 9
+# Check if Class User works in database (psql terminal)
+# 2 Create a database called ratings `createdb ratings`
+# In case database already exists, you can delete and remake `dropdb ratings` `createdb ratings`
+# Run `python3 -i model.py` to go to interactive mode 
+# To create tables in the database that are in Python classes:
+# 1 `db.create_all()
+# CREATE A USER TO ADD TO DATABASE
+# 1 `test_user = User(email='test@test.test', password='test')`
+# 2 `db.session.add(test_user)` -> add to database
+# 3 `db.session.commit()` -> commit to database
