@@ -10,8 +10,20 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    {% for msg in get_flashed_messages() %}
+      <p class="flash-msg">
+        {{ msg }}
+      </p>
+    {% endfor %}
+
     {% block body %}{% endblock %}
 
     {% block after_body %}{% endblock %}
   </body>
 </html>
+
+
+<!-- # Whatever is inputting here will be displayed on other HTML pages if extending from base.html 
+# Nav bar goes on the first line under "<body>"  
+# Fill in blocks to change content -->
+
