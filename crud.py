@@ -12,6 +12,7 @@ def create_user(email, password):
 
     return user
 
+
 def get_users():
     """"Return all users"""
 
@@ -22,6 +23,12 @@ def get_user_by_id(user_id):
     """Returns the user with that ID"""
 
     return User.query.get(user_id)
+
+
+def get_user_by_email(email):
+    """Returns user by email"""
+
+    return User.query.filter(User.email == email).first()
 
 
 def create_movie(title, overview, release_date, poster_path):
@@ -59,7 +66,10 @@ def create_rating(user, movie, score):
 
     return rating
 
-
+def update_rating(rating_id, new_score):
+    """ Update a rating given rating_id and the updated score. """
+    rating = Rating.query.get(rating_id)
+    rating.score = new_score
 
 
 
